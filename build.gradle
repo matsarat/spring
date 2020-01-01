@@ -1,0 +1,47 @@
+buildscript {
+    ext {
+        repos = {
+            gradlePluginPortal()
+            mavenLocal()
+            mavenCentral()
+        }
+        lombokVersion = '1.18.10'
+        springVersion = '5.2.2.RELEASE'
+        repositories (repos)
+    }
+}
+
+
+plugins {
+    id 'groovy'
+    id 'java'
+    id 'idea'
+    id 'info.solidsoft.pitest' version '1.4.6'
+    id 'checkstyle'
+}
+
+apply from: 'gradle/test.gradle'
+
+group 'com.trzewik.spring'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories (repos)
+
+dependencies {
+    compile "org.springframework:spring-context:${springVersion}"
+
+    compileOnly "org.projectlombok:lombok:${lombokVersion}"
+    annotationProcessor "org.projectlombok:lombok:${lombokVersion}"
+}
+
+checkstyle {
+    toolVersion "8.1"
+}
+
+pitest {
+    threads = 4
+    outputFormats = ['XML', 'HTML']
+    timestampedReports = false
+}
