@@ -11,7 +11,7 @@ class CardUT extends Specification {
             def rank = Card.Rank.FIVE
 
         when:
-            def card = new Card(suit, rank)
+            def card = Card.create(suit, rank)
 
         then:
             card.rank == rank
@@ -20,7 +20,7 @@ class CardUT extends Specification {
 
     def 'should throw exception when rank is null'() {
         when:
-            new Card(Card.Suit.CLUB, null)
+            Card.create(Card.Suit.CLUB, null)
 
         then:
             NullPointerException ex = thrown()
@@ -29,7 +29,7 @@ class CardUT extends Specification {
 
     def 'should throw exception when suit is null'() {
         when:
-            new Card(null, Card.Rank.FIVE)
+            Card.create(null, Card.Rank.FIVE)
 
         then:
             NullPointerException ex = thrown()
@@ -40,16 +40,16 @@ class CardUT extends Specification {
         given:
             def suit = Card.Suit.CLUB
             def rank = Card.Rank.FIVE
-            def card = new Card(suit, rank)
+            def card = Card.create(suit, rank)
         expect:
             card.toString() == "${suit.image}${rank.rankName}"
     }
 
     def 'cards with same suit and rank should be equals'() {
         given:
-            def card1 = new Card(Card.Suit.CLUB, Card.Rank.KING)
+            def card1 = Card.create(Card.Suit.CLUB, Card.Rank.KING)
         and:
-            def card2 = new Card(Card.Suit.CLUB, Card.Rank.KING)
+            def card2 = Card.create(Card.Suit.CLUB, Card.Rank.KING)
         expect:
             card1 == card2
     }
@@ -57,9 +57,9 @@ class CardUT extends Specification {
     @Unroll
     def 'cards with suit: #SUIT and rank: #RANK should be not equals to card with suit: #SUIT2 and rank: #RANK2'() {
         given:
-            def card1 = new Card(SUIT, RANK)
+            def card1 = Card.create(SUIT, RANK)
         and:
-            def card2 = new Card(SUIT2, RANK2)
+            def card2 = Card.create(SUIT2, RANK2)
         expect:
             card1 != card2
         where:
@@ -75,7 +75,7 @@ class CardUT extends Specification {
             CARD.isAce() == RESULT
         where:
             CARD                                     || RESULT
-            new Card(Card.Suit.CLUB, Card.Rank.ACE)  || true
-            new Card(Card.Suit.CLUB, Card.Rank.KING) || false
+            Card.create(Card.Suit.CLUB, Card.Rank.ACE)  || true
+            Card.create(Card.Suit.CLUB, Card.Rank.KING) || false
     }
 }

@@ -36,7 +36,7 @@ public class Deck {
             .forEach(suit -> {
                     Arrays.stream(Card.Rank.values())
                         .forEach(rank -> {
-                                stack.push(new Card(suit, rank));
+                                stack.push(Card.create(suit, rank));
                             }
                         );
                 }

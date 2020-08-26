@@ -2,7 +2,7 @@ package com.trzewik.spring.domain.game
 
 trait CardCreation {
     Card createCard(CardCreator creator = new CardCreator()) {
-        return new Card(
+        return Card.create(
             creator.suit,
             creator.rank
         )

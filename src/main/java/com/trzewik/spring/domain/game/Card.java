@@ -7,7 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 @Getter
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@RequiredArgsConstructor(staticName = "create")
 public class Card {
     private final @NonNull Suit suit;
     private final @NonNull Rank rank;

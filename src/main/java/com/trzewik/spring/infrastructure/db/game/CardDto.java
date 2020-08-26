@@ -23,6 +23,6 @@ class CardDto {
     }
 
     Card toCard() {
-        return new Card(this.suit, this.rank);
+        return Card.create(this.suit, this.rank);
     }
 }
