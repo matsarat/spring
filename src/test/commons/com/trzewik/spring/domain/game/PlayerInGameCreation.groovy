@@ -2,7 +2,7 @@ package com.trzewik.spring.domain.game
 
 trait PlayerInGameCreation {
     PlayerInGame createPlayerInGame(PlayerInGameCreator creator = new PlayerInGameCreator()) {
-        return new PlayerInGame(
+        return PlayerInGame.create(
             creator.playerId,
             creator.name,
             creator.hand,

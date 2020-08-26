@@ -16,7 +16,7 @@ public class PlayerServiceClientImpl implements PlayerServiceClient {
     public PlayerInGame getCroupier() {
         final PlayerService.GetCroupierCommand command = new PlayerService.GetCroupierCommand();
         final Player player = playerService.getCroupier(command);
-        return new PlayerInGame(player.getId(), player.getName());
+        return PlayerInGame.create(player.getId(), player.getName());
     }
 
     @Override
@@ -24,7 +24,7 @@ public class PlayerServiceClientImpl implements PlayerServiceClient {
         try {
             final PlayerService.GetPlayerCommand command = new PlayerService.GetPlayerCommand(playerId);
             final Player player = playerService.get(command);
-            return new PlayerInGame(player.getId(), player.getName());
+            return PlayerInGame.create(player.getId(), player.getName());
         } catch (PlayerRepository.PlayerNotFoundException exception) {
             throw new PlayerNotFoundException(exception);
         }

@@ -13,7 +13,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
 
     def 'should create game with move as null and empty hand, and name and id'() {
         given:
-            def playerInGame = new PlayerInGame(PLAYER_ID, PLAYER_NAME)
+            def playerInGame = PlayerInGame.create(PLAYER_ID, PLAYER_NAME)
         expect:
             with(playerInGame) {
                 hand.isEmpty()
@@ -25,7 +25,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
 
     def 'should throw exception when creating with null id'() {
         when:
-            new PlayerInGame(null, '')
+            PlayerInGame.create(null, '')
         then:
             NullPointerException ex = thrown()
             ex.message == 'playerId is marked non-null but is null'
@@ -33,7 +33,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
 
     def 'should throw exception when creating with null name'() {
         when:
-            new PlayerInGame('', null)
+            PlayerInGame.create('', null)
         then:
             NullPointerException ex = thrown()
             ex.message == 'name is marked non-null but is null'
@@ -41,7 +41,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
 
     def 'should throw exception when creating with null id all args'() {
         when:
-            new PlayerInGame(null, '', [] as Set, null)
+            PlayerInGame.create(null, '', [] as Set, null)
         then:
             NullPointerException ex = thrown()
             ex.message == 'playerId is marked non-null but is null'
@@ -49,7 +49,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
 
     def 'should throw exception when creating with null name all args'() {
         when:
-            new PlayerInGame('', null, [] as Set, null)
+            PlayerInGame.create('', null, [] as Set, null)
         then:
             NullPointerException ex = thrown()
             ex.message == 'name is marked non-null but is null'
@@ -57,7 +57,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
 
     def 'should throw exception when creating with null hand all args'() {
         when:
-            new PlayerInGame('', '', null, null)
+            PlayerInGame.create('', '', null, null)
         then:
             NullPointerException ex = thrown()
             ex.message == 'hand is marked non-null but is null'
@@ -68,7 +68,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
             def givenHand = [] as Set
             def givenMove = Game.Move.STAND
         when:
-            def playerInGame = new PlayerInGame(PLAYER_ID, PLAYER_NAME, givenHand, givenMove)
+            def playerInGame = PlayerInGame.create(PLAYER_ID, PLAYER_NAME, givenHand, givenMove)
         then:
             with(playerInGame) {
                 hand == givenHand
@@ -80,7 +80,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
 
     def 'should return string representation of object'() {
         expect:
-            new PlayerInGame(PLAYER_ID, PLAYER_NAME).toString() == "{playerId=$PLAYER_ID, name=$PLAYER_NAME, hand=[], move=null}".toString()
+            PlayerInGame.create(PLAYER_ID, PLAYER_NAME).toString() == "{playerId=$PLAYER_ID, name=$PLAYER_NAME, hand=[], move=null}".toString()
     }
 
     def 'same players in game should be equals'() {
@@ -88,9 +88,9 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
             def hand = [createCard()] as Set
             def move = Game.Move.HIT
         and:
-            def player1 = new PlayerInGame(PLAYER_ID, PLAYER_NAME, hand, move)
+            def player1 = PlayerInGame.create(PLAYER_ID, PLAYER_NAME, hand, move)
         and:
-            def player2 = new PlayerInGame(PLAYER_ID, PLAYER_NAME, hand, move)
+            def player2 = PlayerInGame.create(PLAYER_ID, PLAYER_NAME, hand, move)
         expect:
             player1 == player2
     }
@@ -98,9 +98,9 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
     @Unroll
     def 'player with hand: #HAND and move: #MOVE should be not equals to player with hand: #HAND2 and move: #MOVE2'() {
         given:
-            def player1 = new PlayerInGame(PLAYER_ID, PLAYER_NAME, HAND, MOVE)
+            def player1 = PlayerInGame.create(PLAYER_ID, PLAYER_NAME, HAND, MOVE)
         and:
-            def player2 = new PlayerInGame(PLAYER_ID, PLAYER_NAME, HAND2, MOVE2)
+            def player2 = PlayerInGame.create(PLAYER_ID, PLAYER_NAME, HAND2, MOVE2)
         expect:
             player1 != player2
         where:
@@ -114,7 +114,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
         given:
             def card = createCard()
         and:
-            def player = new PlayerInGame(PLAYER_ID, PLAYER_NAME)
+            def player = PlayerInGame.create(PLAYER_ID, PLAYER_NAME)
         when:
             def playerWithCard = player.addCard(card)
         then:
@@ -127,7 +127,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
 
     def 'should throw exception when adding card which is null'() {
         given:
-            def player = new PlayerInGame(PLAYER_ID, PLAYER_NAME)
+            def player = PlayerInGame.create(PLAYER_ID, PLAYER_NAME)
         when:
             player.addCard(null)
         then:
@@ -138,7 +138,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
     @Unroll
     def 'should return is looser: #RESULT when hand is: #HAND'() {
         given:
-            def player = new PlayerInGame(PLAYER_ID, PLAYER_NAME, HAND, Game.Move.STAND)
+            def player = PlayerInGame.create(PLAYER_ID, PLAYER_NAME, HAND, Game.Move.STAND)
         expect:
             player.isLooser() == RESULT
         where:
@@ -151,7 +151,7 @@ class PlayerInGameUT extends Specification implements PlayerInGameCreation, Card
     @Unroll
     def 'for hand: #HAND should return hand value: #EXPECTED_VALUE'() {
         given:
-            def player = new PlayerInGame(PLAYER_ID, PLAYER_NAME, HAND, Game.Move.STAND)
+            def player = PlayerInGame.create(PLAYER_ID, PLAYER_NAME, HAND, Game.Move.STAND)
         expect:
             player.handValue() == EXPECTED_VALUE
         where:

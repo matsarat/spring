@@ -65,7 +65,7 @@ public class PlayerInGameEntity implements Serializable {
     }
 
     public PlayerInGame toPlayerInGame() {
-        return new PlayerInGame(
+        return PlayerInGame.create(
             this.player.getId(),
             this.player.getName(),
             this.hand.stream().map(CardDto::toCard).collect(Collectors.toSet()),

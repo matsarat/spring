@@ -15,7 +15,7 @@ public class PlayerInGame {
     private final @NonNull Set<Card> hand;
     private final Game.Move move;
 
-    public PlayerInGame(
+    private PlayerInGame(
         @NonNull final String playerId,
         @NonNull final String name,
         @NonNull final Set<Card> hand,
@@ -25,18 +25,6 @@ public class PlayerInGame {
         this.name = name;
         this.hand = ImmutableSet.copyOf(hand);
         this.move = move;
-    }
-
-    public PlayerInGame(
-        @NonNull final String playerId,
-        @NonNull final String name
-    ) {
-        this(
-            playerId,
-            name,
-            ImmutableSet.<Card>builder().build(),
-            null
-        );
     }
 
     private PlayerInGame(
@@ -49,6 +37,24 @@ public class PlayerInGame {
             playerInGame.getName(),
             hand,
             move
+        );
+    }
+
+    public static PlayerInGame create(
+        @NonNull final String playerId,
+        @NonNull final String name,
+        @NonNull final Set<Card> hand,
+        final Game.Move move
+    ) {
+        return new PlayerInGame(playerId, name, hand, move);
+    }
+
+    public static PlayerInGame create(@NonNull final String playerId, @NonNull final String name) {
+        return new PlayerInGame(
+            playerId,
+            name,
+            ImmutableSet.<Card>builder().build(),
+            null
         );
     }
 
