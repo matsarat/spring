@@ -25,7 +25,7 @@ class DeckUT extends Specification implements DeckCreation, CardCreation {
 
     def 'should throw exception when cards are null'() {
         when:
-            new Deck(null)
+            Deck.create(null)
         then:
             NullPointerException ex = thrown()
             ex.message == 'cards is marked non-null but is null'
@@ -35,7 +35,7 @@ class DeckUT extends Specification implements DeckCreation, CardCreation {
         given:
             def cards = [] as Stack
         when:
-            def deck = new Deck(cards)
+            def deck = Deck.create(cards)
         then:
             deck.cards.is(cards)
     }
@@ -44,7 +44,7 @@ class DeckUT extends Specification implements DeckCreation, CardCreation {
         given:
             def cards = [] as Stack
         and:
-            def deck = new Deck(cards)
+            def deck = Deck.create(cards)
         when:
             deck.take()
         then:

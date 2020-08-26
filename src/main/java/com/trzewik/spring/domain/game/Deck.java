@@ -13,7 +13,7 @@ import java.util.Stack;
 @Getter
 @ToString
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@RequiredArgsConstructor(staticName = "create")
 public class Deck {
     private final @NonNull Stack<Card> cards;
 

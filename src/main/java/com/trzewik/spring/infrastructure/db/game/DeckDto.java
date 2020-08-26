@@ -26,7 +26,7 @@ class DeckDto {
     }
 
     Deck toDeck() {
-        return new Deck(
+        return Deck.create(
             this.getCards().stream()
                 .map(CardDto::toCard)
                 .collect(Collectors.toCollection(Stack::new))
