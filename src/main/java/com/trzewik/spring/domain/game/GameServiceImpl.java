@@ -1,5 +1,6 @@
 package com.trzewik.spring.domain.game;
 
+import lombok.AccessLevel;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -7,7 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import java.util.List;
 
 @Slf4j
-@RequiredArgsConstructor
+@RequiredArgsConstructor(access = AccessLevel.PACKAGE)
 class GameServiceImpl implements GameService {
     private final @NonNull GameRepository gameRepo;
     private final @NonNull PlayerServiceClient playerServiceClient;

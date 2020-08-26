@@ -9,7 +9,7 @@ import java.util.UUID;
 
 @Getter
 @EqualsAndHashCode
-@RequiredArgsConstructor
+@RequiredArgsConstructor(staticName = "create")
 public class Player {
     private static final String CROUPIER_ID = "CROUPIER-ID";
     private static final String CROUPIER_NAME = "CROUPIER";

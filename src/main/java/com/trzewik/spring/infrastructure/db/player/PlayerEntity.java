@@ -43,7 +43,7 @@ public class PlayerEntity implements Serializable {
     }
 
     public Player toPlayer() {
-        return new Player(
+        return Player.create(
             this.id,
             this.name
         );
