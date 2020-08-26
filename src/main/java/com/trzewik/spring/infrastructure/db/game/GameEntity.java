@@ -69,7 +69,7 @@ public class GameEntity implements Serializable {
     }
 
     public Game toGame() {
-        return new Game(
+        return Game.create(
             this.id,
             this.deck.toDeck(),
             this.players.stream()

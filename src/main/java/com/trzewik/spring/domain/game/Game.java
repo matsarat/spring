@@ -23,11 +23,11 @@ public class Game {
     private final @NonNull String croupierId;
     private final @NonNull Status status;
 
-    public Game(@NonNull final String id,
-                @NonNull final Deck deck,
-                @NonNull final List<PlayerInGame> players,
-                @NonNull final String croupierId,
-                @NonNull final Status status
+    private Game(@NonNull final String id,
+                 @NonNull final Deck deck,
+                 @NonNull final List<PlayerInGame> players,
+                 @NonNull final String croupierId,
+                 @NonNull final Status status
     ) {
         this.id = id;
         this.deck = deck;
@@ -64,6 +64,16 @@ public class Game {
         this.players = players;
         this.croupierId = game.getCroupierId();
         this.status = status;
+    }
+
+    public static Game create(
+        @NonNull final String id,
+        @NonNull final Deck deck,
+        @NonNull final List<PlayerInGame> players,
+        @NonNull final String croupierId,
+        @NonNull final Status status
+    ) {
+        return new Game(id, deck, players, croupierId, status);
     }
 
     public PlayerInGame getCroupier() {

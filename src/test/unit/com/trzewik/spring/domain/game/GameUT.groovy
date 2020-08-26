@@ -276,7 +276,7 @@ class GameUT extends Specification implements PlayerInGameCreation, DeckCreation
             def players = [croupier]
             def status = Game.Status.STARTED
         when:
-            def game = new Game(id, deck, players, croupier.playerId, status)
+            def game = Game.create(id, deck, players, croupier.playerId, status)
         then:
             game.id.is(id)
             game.deck.is(deck)
@@ -288,7 +288,7 @@ class GameUT extends Specification implements PlayerInGameCreation, DeckCreation
 
     def 'should throw exception when id is null'() {
         when:
-            new Game(null, createDeck(), [], croupier.playerId, Game.Status.NOT_STARTED)
+            Game.create(null, createDeck(), [], croupier.playerId, Game.Status.NOT_STARTED)
         then:
             NullPointerException ex = thrown()
             ex.message == 'id is marked non-null but is null'
@@ -296,7 +296,7 @@ class GameUT extends Specification implements PlayerInGameCreation, DeckCreation
 
     def 'should throw exception when deck is null'() {
         when:
-            new Game('', null, [], croupier.playerId, Game.Status.NOT_STARTED)
+            Game.create('', null, [], croupier.playerId, Game.Status.NOT_STARTED)
         then:
             NullPointerException ex = thrown()
             ex.message == 'deck is marked non-null but is null'
@@ -304,7 +304,7 @@ class GameUT extends Specification implements PlayerInGameCreation, DeckCreation
 
     def 'should throw exception when players are null'() {
         when:
-            new Game('', createDeck(), null, croupier.playerId, Game.Status.NOT_STARTED)
+            Game.create('', createDeck(), null, croupier.playerId, Game.Status.NOT_STARTED)
         then:
             NullPointerException ex = thrown()
             ex.message == 'players is marked non-null but is null'
@@ -312,7 +312,7 @@ class GameUT extends Specification implements PlayerInGameCreation, DeckCreation
 
     def 'should throw exception when croupier is null - all args constructor'() {
         when:
-            new Game('', createDeck(), [], null, Game.Status.NOT_STARTED)
+            Game.create('', createDeck(), [], null, Game.Status.NOT_STARTED)
         then:
             NullPointerException ex = thrown()
             ex.message == 'croupierId is marked non-null but is null'
@@ -320,7 +320,7 @@ class GameUT extends Specification implements PlayerInGameCreation, DeckCreation
 
     def 'should throw exception when status is null'() {
         when:
-            new Game('', createDeck(), [], croupier.playerId, null)
+            Game.create('', createDeck(), [], croupier.playerId, null)
         then:
             NullPointerException ex = thrown()
             ex.message == 'status is marked non-null but is null'
