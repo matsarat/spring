@@ -4,4 +4,5 @@ import com.czeffik.jenkins.shared.library.Repository
 def git = new Git()
 def repo = new Repository(url: 'https://github.com/Czeffik/spring.git')
 
+echo 'TODAY'
 echo repo.url
