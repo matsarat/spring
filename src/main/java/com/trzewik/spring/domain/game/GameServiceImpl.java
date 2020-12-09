@@ -70,6 +70,6 @@ class GameServiceImpl implements GameService {
         throws GameRepository.GameNotFoundException, Result.Exception {
         log.info("Received get game results command: [{}].", getGameResultsCommand);
         final Game game = gameRepo.getById(getGameResultsCommand.getGameId());
-        return ResultsHelper.createResults(game);
+        return Game.createResults(game);
     }
 }
