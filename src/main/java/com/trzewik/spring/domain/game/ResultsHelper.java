@@ -11,7 +11,7 @@ public class ResultsHelper {
 
     static List<Result> createResults(final Game game) throws Result.Exception {
         validateGameStatus(game);
-        return generateResults(game.getPlayers(), game);
+        return generateResults(game);
     }
 
     private static void validateGameStatus(final Game game) throws Result.Exception {
@@ -20,7 +20,8 @@ public class ResultsHelper {
         }
     }
 
-    private static List<Result> generateResults(final List<PlayerInGame> players, Game game) {
+    private static List<Result> generateResults(Game game) {
+        List<PlayerInGame> players = game.getPlayers();
         return players.stream()
             .map(player -> checkIfWonOrLost(player, game))
             .collect(Collectors.toList());
@@ -32,12 +33,16 @@ public class ResultsHelper {
             return new Result(Result.GameResult.WIN, player);
         } else if (player.isLooser()) {
             return new Result(Result.GameResult.LOSS, player);
-        } else if (player.handValue() > game.getCroupier().handValue()) {
+        } else if (player.handValue() > getCroupierHandValue(game)) {
             return new Result(Result.GameResult.WIN, player);
-        } else if (player.handValue() < game.getCroupier().handValue()) {
+        } else if (player.handValue() < getCroupierHandValue(game)) {
             return new Result(Result.GameResult.LOSS, player);
         } else {
             return new Result(Result.GameResult.DRAW, player);
         }
+    }
+
+    private static int getCroupierHandValue(Game game) {
+        return game.getCroupier().handValue();
     }
 }
