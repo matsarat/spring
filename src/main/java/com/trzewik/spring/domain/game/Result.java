@@ -9,13 +9,13 @@ import java.util.Set;
 @Getter
 @EqualsAndHashCode
 public class Result {
-    private final int place;
+    private final GameResult gameResult;
     private final @NonNull String name;
     private final @NonNull Set<Card> hand;
     private final int handValue;
 
-    Result(final int place, @NonNull final PlayerInGame playerInGame) {
-        this.place = place;
+    Result(final GameResult gameResult, @NonNull final PlayerInGame playerInGame) {
+        this.gameResult = gameResult;
         this.name = playerInGame.getName();
         this.hand = playerInGame.getHand();
         this.handValue = playerInGame.handValue();
@@ -25,5 +25,11 @@ public class Result {
         public Exception(String msg) {
             super(msg);
         }
+    }
+
+    public enum GameResult {
+        WIN,
+        LOSS,
+        DRAW
     }
 }

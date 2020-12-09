@@ -8,13 +8,13 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class ResultDto {
-    private final int place;
+    private final Result.GameResult gameResult;
     private final String name;
     private final HandDto hand;
 
     public static ResultDto from(final Result result) {
         return new ResultDto(
-            result.getPlace(),
+            result.getGameResult(),
             result.getName(),
             HandDto.from(result.getHand(), result.getHandValue())
         );
